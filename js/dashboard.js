@@ -90,6 +90,20 @@ function initDashboard() {
 
   document.getElementById("user-name").textContent = session.name.split(" ")[0];
   document.getElementById("user-email").textContent = session.email;
+
+  // Member since date
+  if (session.created) {
+    document.getElementById("member-since").textContent = new Date(session.created).toLocaleDateString("en-GB", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+  }
+
+  // Stat values
+  document.getElementById("stat-tips").textContent = dailyTips.length;
+
   document.getElementById("tip-date").textContent = new Date().toLocaleDateString("en-GB", {
     weekday: "long",
     day: "numeric",

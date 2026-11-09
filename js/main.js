@@ -174,6 +174,31 @@ function initChatAssistant() {
     panel.hidden = !panel.hidden;
     if (panel.hidden) return;
 
+    // Speak a welcome greeting when the chat is opened
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(
+        "Hello! I'm your assistant here at N Kuria Advocates. I'm happy to help you with any questions about our services."
+      );
+      utterance.lang = "en-US";
+      utterance.rate = 0.95;
+
+      // Prefer a female voice when available
+      const voices = window.speechSynthesis.getVoices();
+      const femaleVoice = voices.find(function (voice) {
+        return voice.name.toLowerCase().includes("female")
+          || voice.name.toLowerCase().includes("woman")
+          || voice.localService && voice.name.toLowerCase().includes("samantha")
+          || voice.name.toLowerCase().includes("karen")
+          || voice.name.toLowerCase().includes("moira")
+          || voice.name.toLowerCase().includes("tessa")
+          || voice.name.toLowerCase().includes("veena");
+      });
+      if (femaleVoice) utterance.voice = femaleVoice;
+
+      window.speechSynthesis.speak(utterance);
+    }
+
     if (!welcomeShown) {
       addMessage(chatWelcome, "bot", false);
       welcomeShown = true;
@@ -219,7 +244,11 @@ function getSession() {
 
 function saveSession(name, email) {
   try {
-    localStorage.setItem(sessionKey, JSON.stringify({ name: name, email: email }));
+    localStorage.setItem(sessionKey, JSON.stringify({
+      name: name,
+      email: email,
+      created: new Date().toISOString()
+    }));
     return true;
   } catch (error) {
     return false;
@@ -242,7 +271,7 @@ function initAccount() {
   const signinForm = document.getElementById("signin-form");
   const signupTab = document.getElementById("tab-signup");
   const signinTab = document.getElementById("tab-signin");
-  const dashboardUrl = siteRoot + "dashboard/index.html";
+  const dashboardUrl = siteRoot + "dashboard.html";
   let previouslyFocused = null;
 
   // Signed-in visitors see their initial in the round button
@@ -395,8 +424,22 @@ function initContactForm() {
 /* ---------- 6. Scroll animations ---------- */
 
 // Elements marked class="reveal" fade up the first time they scroll into view.
+// Uses CSS scroll-driven animations (animation-timeline: view()) where supported
+// for buttery-smooth, main-thread-free reveals; falls back to IntersectionObserver.
 function initScrollReveal() {
   const items = document.querySelectorAll(".reveal");
+  const scrollDriven = CSS.supports("animation-timeline: view()");
+
+  if (scrollDriven) {
+    // CSS scroll-driven timeline handles the reveal; no JS observer needed.
+    items.forEach(function (item, index) {
+      item.classList.remove("reveal");
+      item.classList.add("reveal-scroll");
+      item.classList.add("stagger-" + ((index % 6) + 1));
+    });
+    return;
+  }
+
   if (!("IntersectionObserver" in window)) {
     items.forEach(function (item) {
       item.classList.remove("reveal");
@@ -459,4 +502,37 @@ initAccount();
 initScrollReveal();
 initHeaderShadow();
 initContactForm();
+
+
+/* ---------- Page entry veil (additive) ---------- */
+
+(function () {
+  function initEntryVeil() {
+    var veil = document.createElement("div");
+    veil.className = "entry-veil";
+    veil.innerHTML =
+      '<img src="images/Logo.png" alt="N Kuria Advocates" class="entry-logo" onerror="this.remove()">' +
+      '<h1 class="entry-title">N Kuria</h1>' +
+      '<div class="entry-stroke"></div>' +
+      '<p class="entry-sub">Advocates</p>';
+    document.body.insertBefore(veil, document.body.firstChild);
+
+    // Dismiss early on click
+    veil.addEventListener("click", function () {
+      veil.classList.add("done");
+      setTimeout(function () { veil.remove(); }, 700);
+    });
+
+    setTimeout(function () {
+      veil.classList.add("done");
+      setTimeout(function () { veil.remove(); }, 700);
+    }, 1400);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initEntryVeil);
+  } else {
+    initEntryVeil();
+  }
+})();
 
