@@ -12,9 +12,9 @@
 // Every <body> carries it in a data-root attribute.
 const siteRoot = document.body.dataset.root || "";
 
-// Builds a link to a page folder, used in chat answers.
-function pageLink(folder, text) {
-  return '<a href="' + siteRoot + folder + '/index.html">' + text + "</a>";
+// Builds a link to a page, used in chat answers.
+function pageLink(page, text) {
+  return '<a href="' + siteRoot + page + '">' + text + "</a>";
 }
 
 
@@ -88,43 +88,43 @@ const chatAnswers = [
   },
   {
     pattern: /consult|book|appoint|speak|meet/,
-    reply: "To arrange a consultation, please " + pageLink("contact", "contact our team") + ". Booking does not create an advocate-client relationship."
+    reply: "To arrange a consultation, please " + pageLink("contact.html", "contact our team") + ". Booking does not create an advocate-client relationship."
   },
   {
     pattern: /fee|cost|price|charge|quote/,
-    reply: "Fees depend on the matter, so I can't quote one here. Please " + pageLink("contact", "contact our team") + " for an estimate."
+    reply: "Fees depend on the matter, so I can't quote one here. Please " + pageLink("contact.html", "contact our team") + " for an estimate."
   },
   {
     pattern: /trust|wealth|\bwill\b|wills|planning/,
-    reply: "Our " + pageLink("expertise/trusts-wills-private-wealth", "Trusts, Wills & Private Wealth") + " practice covers estate planning, trusts, family wealth structures and business succession."
+    reply: "Our " + pageLink("trusts-wills-private-wealth.html", "Trusts, Wills & Private Wealth") + " practice covers estate planning, trusts, family wealth structures and business succession."
   },
   {
     pattern: /probate|succession|administration|estate|inherit|executor/,
-    reply: "Our " + pageLink("expertise/estate-succession", "Estate & Succession") + " practice covers probate, letters of administration, confirmation of grants and post-confirmation transmission of assets."
+    reply: "Our " + pageLink("estate-succession.html", "Estate & Succession") + " practice covers probate, letters of administration, confirmation of grants and post-confirmation transmission of assets."
   },
   {
     pattern: /merger|acquisition|m&a|incorporat|corporate|shareholder|company/,
-    reply: "See " + pageLink("expertise/corporate-ma", "Corporate & M&A") + ": incorporation, restructuring, transactions, shareholder agreements and due diligence."
+    reply: "See " + pageLink("corporate-ma.html", "Corporate & M&A") + ": incorporation, restructuring, transactions, shareholder agreements and due diligence."
   },
   {
     pattern: /bank|loan|financ|lend|security/,
-    reply: "See " + pageLink("expertise/banking-finance", "Banking & Finance") + ": facility agreements, security, refinancing and finance disputes."
+    reply: "See " + pageLink("banking-finance.html", "Banking & Finance") + ": facility agreements, security, refinancing and finance disputes."
   },
   {
     pattern: /property|land|real estate|title|lease|develop/,
-    reply: "See " + pageLink("expertise/real-estate-projects", "Real Estate & Projects") + ": acquisitions, title investigations, leases and development agreements."
+    reply: "See " + pageLink("real-estate-projects.html", "Real Estate & Projects") + ": acquisitions, title investigations, leases and development agreements."
   },
   {
     pattern: /dispute|litigat|arbitrat|mediat|court|sue/,
-    reply: "See " + pageLink("expertise/dispute-resolution", "Dispute Resolution") + ": negotiation, mediation, arbitration and litigation."
+    reply: "See " + pageLink("dispute-resolution.html", "Dispute Resolution") + ": negotiation, mediation, arbitration and litigation."
   },
   {
     pattern: /complian|governance|board|regulat/,
-    reply: "See " + pageLink("expertise/governance-compliance", "Governance & Compliance") + ": governance frameworks, policies and regulatory reviews."
+    reply: "See " + pageLink("governance-compliance.html", "Governance & Compliance") + ": governance frameworks, policies and regulatory reviews."
   },
   {
     pattern: /foreign|international|invest|abroad|overseas/,
-    reply: "See " + pageLink("expertise/international-business", "International Business") + ": market entry, company establishment and cross-border support."
+    reply: "See " + pageLink("international-business.html", "International Business") + ": market entry, company establishment and cross-border support."
   },
   {
     pattern: /account|register|sign ?up|log ?in/,
@@ -132,12 +132,12 @@ const chatAnswers = [
   },
   {
     pattern: /service|practice|expertise|what do you|areas/,
-    reply: "Our eight practice areas are listed on the " + pageLink("expertise", "Expertise") + " page."
+    reply: "Our eight practice areas are listed on the " + pageLink("expertise.html", "Expertise") + " page."
   }
 ];
 
 const chatWelcome = "General information only, not legal advice. No advocate-client relationship is created. Please don't share confidential case details here.";
-const chatFallback = "I can't answer that reliably. For anything specific to your situation, please " + pageLink("contact", "contact our team") + " or call +254 102 400 400.";
+const chatFallback = "I can't answer that reliably. For anything specific to your situation, please " + pageLink("contact.html", "contact our team") + " or call +254 102 400 400.";
 
 function initChatAssistant() {
   const toggleButton = document.querySelector(".chat-toggle");
@@ -459,3 +459,4 @@ initAccount();
 initScrollReveal();
 initHeaderShadow();
 initContactForm();
+

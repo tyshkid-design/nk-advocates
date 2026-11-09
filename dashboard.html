@@ -3,28 +3,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Our Expertise | N. Kuria &amp; Company Advocates</title>
-  <meta name="description" content="Eight practice areas across corporate, commercial and private wealth.">
-  <link rel="stylesheet" href="../css/style.css">
+  <title>Your Dashboard | N. Kuria &amp; Company Advocates</title>
+  <meta name="description" content="Your account dashboard with a new general legal tip every day.">
+  <link rel="stylesheet" href="css/style.css">
   <!-- Lets the CSS know JavaScript is running, so scroll animations are safe to use -->
   <script>document.documentElement.className = "js";</script>
 </head>
-<body data-root="../">
+<body data-root="">
 
   <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="../index.html">
-        <img src="../images/logo.png" alt="N Kuria Advocates logo" class="brand-logo">
+      <a class="brand" href="index.html">
+        <img src="images/logo.png" alt="N Kuria Advocates logo" class="brand-logo">
         <span class="brand-text">N Kuria
         <small>Advocates</small></span>
       </a>
       <nav class="main-nav" aria-label="Main">
-        <a href="../about/index.html">About</a>
-        <a href="../expertise/index.html">Expertise</a>
-        <a href="../contact/index.html">Contact</a>
+        <a href="about.html">About</a>
+        <a href="expertise.html">Expertise</a>
+        <a href="contact.html">Contact</a>
       </nav>
       <div class="header-actions">
         <!-- Round account button: opens the sign-in pop-up (or the dashboard once signed in) -->
@@ -45,52 +45,49 @@
   </header>
 
   <main id="main">
-    <section class="page-hero">
-      <div class="container">
-        <p class="eyebrow">Expertise</p>
-        <h1>Our Capabilities</h1>
-        <p>Strategic legal counsel across eight practice areas, for businesses, investors, institutions, families and individuals.</p>
-      </div>
-    </section>
+    <!-- Hidden until dashboard.js confirms the visitor is signed in -->
+    <div id="dashboard" hidden>
 
-    <section class="section">
-      <div class="container">
-        <div class="card-grid">
-          <a class="card reveal" href="../expertise/corporate-ma/index.html">
-            <h3>Corporate &amp; M&amp;A</h3>
-            <p>Strategic Counsel for Business Decisions and Transactions.</p>
-          </a>
-          <a class="card reveal" href="../expertise/banking-finance/index.html">
-            <h3>Banking &amp; Finance</h3>
-            <p>Structuring Finance. Managing Risk. Supporting Growth.</p>
-          </a>
-          <a class="card reveal" href="../expertise/real-estate-projects/index.html">
-            <h3>Real Estate &amp; Projects</h3>
-            <p>Protecting Property Interests. Advancing Projects.</p>
-          </a>
-          <a class="card reveal" href="../expertise/estate-succession/index.html">
-            <h3>Estate &amp; Succession</h3>
-            <p>Diligent Stewardship from Administration to Transmission.</p>
-          </a>
-          <a class="card reveal" href="../expertise/trusts-wills-private-wealth/index.html">
-            <h3>Trusts, Wills &amp; Private Wealth</h3>
-            <p>Preserving Wealth. Planning Continuity. Protecting Legacies.</p>
-          </a>
-          <a class="card reveal" href="../expertise/dispute-resolution/index.html">
-            <h3>Dispute Resolution</h3>
-            <p>Resolving Disputes with Strategy and Commercial Judgment.</p>
-          </a>
-          <a class="card reveal" href="../expertise/governance-compliance/index.html">
-            <h3>Governance &amp; Compliance</h3>
-            <p>Sound Governance. Informed Decisions. Sustainable Enterprises.</p>
-          </a>
-          <a class="card reveal" href="../expertise/international-business/index.html">
-            <h3>International Business</h3>
-            <p>A Trusted Legal Entry Point into Kenya.</p>
-          </a>
+      <section class="page-hero">
+        <div class="container">
+          <p class="eyebrow">Your account</p>
+          <h1>Welcome, <span id="user-name"></span></h1>
+          <p>Your legal tip for today, plus quick links to our team and practice areas.</p>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <p class="notice">
+            Tips are general information only. They are not legal advice and do not
+            create an advocate-client relationship. For advice on your situation, speak to our team.
+          </p>
+
+          <p class="section-label reveal">Legal tip for <span id="tip-date"></span></p>
+          <article class="tip-featured">
+            <p class="tip-category" id="tip-category"></p>
+            <h2 id="tip-title"></h2>
+            <p id="tip-text"></p>
+          </article>
+
+          <p class="section-label reveal">Recent tips</p>
+          <div class="card-grid-3" id="recent-tips"></div>
+        </div>
+      </section>
+
+      <section class="section section-dark">
+        <div class="container">
+          <h2 class="reveal">Need advice on your own matter?</h2>
+          <p>Signed in as <strong id="user-email"></strong>. Having an account does not guarantee direct access to legal services.</p>
+          <div class="button-row">
+            <a class="btn btn-gold" href="contact.html">Speak to Our Team</a>
+            <a class="btn btn-outline" href="expertise.html">Explore Our Expertise</a>
+            <button class="btn btn-outline" type="button" id="sign-out">Sign out</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
   </main>
 
   <!-- Footer -->
@@ -106,9 +103,9 @@
       </div>
       <div>
         <h3>Explore</h3>
-        <a href="../about/index.html">About</a>
-        <a href="../expertise/index.html">Expertise</a>
-        <a href="../contact/index.html">Contact</a>
+        <a href="about.html">About</a>
+        <a href="expertise.html">Expertise</a>
+        <a href="contact.html">Contact</a>
       </div>
       <div>
         <h3>Contact</h3>
@@ -185,6 +182,10 @@
     </form>
   </div>
 
-  <script src="../js/main.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/dashboard.js"></script>
 </body>
 </html>
+
+
+
