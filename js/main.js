@@ -536,3 +536,30 @@ initContactForm();
   }
 })();
 
+
+/* ---------- Back to top button ---------- */
+
+(function () {
+  var btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "back-to-top";
+  btn.setAttribute("aria-label", "Back to top");
+  btn.innerHTML = "&uarr;";
+  document.body.appendChild(btn);
+
+  function toggle() {
+    if (window.scrollY > 300) {
+      btn.classList.add("visible");
+    } else {
+      btn.classList.remove("visible");
+    }
+  }
+
+  btn.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  window.addEventListener("scroll", toggle);
+  toggle();
+})();
+

@@ -28,14 +28,12 @@
         <a href="contact.html">Contact</a>
       </nav>
       <div class="header-actions">
-        <!-- Round account button: opens the sign-in pop-up (or the dashboard once signed in) -->
         <button class="account-button" type="button" aria-label="Sign in or create an account">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="8" r="4"></circle>
             <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"></path>
           </svg>
         </button>
-        <!-- Hamburger button: only shown on small screens -->
         <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
           <span class="menu-bar"></span>
           <span class="menu-bar"></span>
@@ -49,40 +47,114 @@
     <!-- Hidden until dashboard.js confirms the visitor is signed in -->
     <div id="dashboard" hidden>
 
+      <!-- Dashboard header -->
       <section class="page-hero">
+        <img class="hero-image" src="images/dash.png" alt="" onerror="this.remove()">
         <div class="container">
           <p class="eyebrow">Your account</p>
-          <h1>Welcome, <span id="user-name"></span></h1>
-          <p>Your legal tip for today, plus quick links to our team and practice areas.</p>
+          <h1>Welcome back, <span id="user-name"></span></h1>
+          <p>Here is your daily legal tip and quick access to our team and practice areas.</p>
         </div>
       </section>
 
+      <!-- Stats overview -->
       <section class="section">
         <div class="container">
-          <p class="notice">
-            Tips are general information only. They are not legal advice and do not
-            create an advocate-client relationship. For advice on your situation, speak to our team.
-          </p>
+          <div class="stat-grid">
+            <div class="stat-card reveal">
+              <span class="stat-value" id="stat-tips">1</span>
+              <span class="stat-label">Tip today</span>
+            </div>
+            <div class="stat-card reveal">
+              <span class="stat-value">8</span>
+              <span class="stat-label">Practice areas</span>
+            </div>
+            <div class="stat-card reveal">
+              <span class="stat-value">24/7</span>
+              <span class="stat-label">Chat support</span>
+            </div>
+            <div class="stat-card reveal">
+              <span class="stat-value" id="member-since">Today</span>
+              <span class="stat-label">Member since</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-          <p class="section-label reveal">Legal tip for <span id="tip-date"></span></p>
-          <article class="tip-featured">
+      <!-- Featured daily tip -->
+      <section class="section section-dark">
+        <div class="container">
+          <div class="featured-tip reveal">
+            <div class="tip-header">
+              <p class="tip-date" id="tip-date"></p>
+              <span class="tip-badge">Today's Tip</span>
+            </div>
             <p class="tip-category" id="tip-category"></p>
             <h2 id="tip-title"></h2>
             <p id="tip-text"></p>
-          </article>
+            <div class="tip-actions">
+              <a class="btn btn-outline" href="contact.html">Ask Our Team</a>
+            </div>
+          </div>
+        </div>
+      </section>
 
+      <!-- Daily wisdom quote -->
+      <section class="section section-dark">
+        <div class="container">
+          <p class="section-label reveal">Daily wisdom</p>
+          <div class="quote-card reveal">
+            <p class="quote-text" id="daily-quote"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick actions -->
+      <section class="section">
+        <div class="container">
+          <p class="section-label reveal">Quick actions</p>
+          <div class="card-grid-3 reveal">
+            <a class="card reveal" href="contact.html">
+              <div class="card-image-wrap">
+                <img src="images/speak.png" alt="Contact" class="card-image" onerror="this.remove()">
+              </div>
+              <h3>Speak to Our Team</h3>
+              <p>Book a consultation or send an enquiry.</p>
+            </a>
+            <a class="card reveal" href="expertise.html">
+              <div class="card-image-wrap">
+                <img src="images/explore.png" alt="Expertise" class="card-image" onerror="this.remove()">
+              </div>
+              <h3>Explore Expertise</h3>
+              <p>Browse our eight practice areas.</p>
+            </a>
+            <a class="card reveal" href="about.html">
+              <div class="card-image-wrap">
+                <img src="images/about.png" alt="About" class="card-image" onerror="this.remove()">
+              </div>
+              <h3>About Our Firm</h3>
+              <p>Learn who we are and what we stand for.</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recent tips -->
+      <section class="section">
+        <div class="container">
           <p class="section-label reveal">Recent tips</p>
           <div class="card-grid-3" id="recent-tips"></div>
         </div>
       </section>
 
+      <!-- Sign out -->
       <section class="section section-dark">
         <div class="container">
-          <h2 class="reveal">Need advice on your own matter?</h2>
-          <p>Signed in as <strong id="user-email"></strong>. Having an account does not guarantee direct access to legal services.</p>
-          <div class="button-row">
-            <a class="btn btn-gold" href="contact.html">Speak to Our Team</a>
-            <a class="btn btn-outline" href="expertise.html">Explore Our Expertise</a>
+          <div class="account-info reveal">
+            <p>Signed in as <strong id="user-email"></strong></p>
+            <p>Having an account does not guarantee direct access to legal services.</p>
+          </div>
+          <div class="button-row reveal">
             <button class="btn btn-outline" type="button" id="sign-out">Sign out</button>
           </div>
         </div>
@@ -187,8 +259,3 @@
   <script src="js/dashboard.js"></script>
 </body>
 </html>
-
-
-
-
-

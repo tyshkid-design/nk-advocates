@@ -62,6 +62,61 @@ const dailyTips = [
   }
 ];
 
+// Daily wisdom quotes — one per day, cycled by date.
+const dailyQuotes = [
+  "Justice delayed is justice denied.",
+  "The law is reason, free from passion.",
+  "A good lawyer knows the law; a great lawyer knows the client.",
+  "Integrity is doing the right thing even when no one is watching.",
+  "In law, as in life, preparation is everything.",
+  "A contract is only as strong as the trust behind it.",
+  "Fairness is not an option; it is a requirement.",
+  "The best agreement is one where both sides feel they won.",
+  "Knowledge of the law is power; wisdom is knowing how to use it.",
+  "Every case has two sides — listen to both before you judge.",
+  "Honesty is the first chapter in the book of wisdom.",
+  "A client's trust is earned one honest answer at a time.",
+  "Law is not about winning; it is about what is right.",
+  "Patience is a virtue, especially in litigation.",
+  "The pen is mightier than the sword — especially a well-drafted contract.",
+  "Clarity prevents conflict.",
+  "Justice should not be a luxury; it should be accessible to all.",
+  "A stitch in time saves nine — seek legal advice early.",
+  "Respect the process, respect the court, respect the client.",
+  "The truth is the best defence.",
+  "Confidentiality is the foundation of the advocate-client relationship.",
+  "Laws change; principles endure.",
+  "Diligence beats talent when talent does not do the work.",
+  "Every signature matters — read before you sign.",
+  "Compliance is not a burden; it is a shield.",
+  "Disputes are inevitable; litigation is optional.",
+  "A will speaks for you when you no longer can.",
+  "Property rights are the cornerstone of prosperity.",
+  "Good governance begins with clear rules.",
+  "Risk identified is risk halved.",
+  "Partnerships thrive on written agreements, not handshakes.",
+  "Data is an asset — protect it like one.",
+  "Mediation often achieves what litigation cannot.",
+  "The rule of law protects the weak as well as the strong.",
+  "Success in law is measured by client peace of mind.",
+  "Attention to detail separates good advocacy from great advocacy.",
+  "Legal precision prevents costly ambiguity.",
+  "Trust is built in consistency, not in grand gestures.",
+  "The court rewards those who come with clean hands.",
+  "Every transaction leaves a paper trail — make it a good one.",
+  "Change is constant; legal readiness is not optional.",
+  "A well-advised client makes better decisions.",
+  "Justice is not about technicalities; it is about substance.",
+  "Professional courtesy costs nothing and earns everything.",
+  "The best legal advice is practical, not theoretical.",
+  "Precedent guides us, but justice defines us.",
+  "Confidentiality is sacred — guard it fiercely.",
+  "Laws exist to serve society, not the other way around.",
+  "Preparation is the difference between panic and performance.",
+  "Advocacy is the art of persuasion with principle.",
+  "Every client deserves to be heard."
+];
+
 // Number of whole days since 1970, using the visitor's local date.
 function getDayNumber() {
   const now = new Date();
@@ -74,6 +129,13 @@ function getTip(dayNumber, daysAgo) {
   const count = dailyTips.length;
   const index = (((dayNumber - daysAgo) % count) + count) % count;
   return dailyTips[index];
+}
+
+// Picks a quote by day number.
+function getQuote(dayNumber) {
+  const count = dailyQuotes.length;
+  const index = (((dayNumber % count) + count) % count);
+  return dailyQuotes[index];
 }
 
 function initDashboard() {
@@ -113,6 +175,10 @@ function initDashboard() {
   document.getElementById("tip-category").textContent = today.category;
   document.getElementById("tip-title").textContent = today.title;
   document.getElementById("tip-text").textContent = today.text;
+
+  // Daily quote
+  const quote = getQuote(dayNumber);
+  document.getElementById("daily-quote").textContent = quote;
 
   // The three tips before today's
   const recentList = document.getElementById("recent-tips");

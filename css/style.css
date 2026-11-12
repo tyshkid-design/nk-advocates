@@ -265,9 +265,21 @@ textarea:focus-visible {
 
 .page-hero {
   padding: 96px 0 72px;
+  position: relative;
+  z-index: 0;
+}
+
+.page-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(14, 80, 62, 1), rgba(18, 63, 53, 0));
+  z-index: 1;
 }
 
 .page-hero .container {
+  position: relative;
+  z-index: 2;
   max-width: 900px;
 }
 
@@ -279,6 +291,7 @@ textarea:focus-visible {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  z-index: 0;
 }
 
 /* Dark green-to-navy tint over the photo so the text stays readable */
@@ -374,6 +387,7 @@ textarea:focus-visible {
 }
 
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -385,6 +399,16 @@ textarea:focus-visible {
   color: #24332F;
   text-decoration: none;
   transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+.card h3 {
+  margin-top: 60px;
+}
+
+.card:hover {
+  transform: rotate(-2deg) translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+  border-color: #C8A76B;
 }
 
 .card-image-wrap {
@@ -401,6 +425,92 @@ textarea:focus-visible {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* Small badge image on top-left of expertise cards */
+.card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.badge-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Glowing "click to see more" notice on each expertise card */
+.card-see-more {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #C8A76B;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s, text-shadow 0.3s;
+  pointer-events: none;
+}
+
+.card:hover .card-see-more {
+  opacity: 1;
+  transform: translateY(-2px);
+  text-shadow: 0 0 10px rgba(200, 167, 107, 0.9), 0 0 20px rgba(18, 63, 53, 0.5);
+}
+
+/* Glowing green "see all" button under the home capability grid */
+.see-more {
+  display: inline-block;
+  margin: 40px auto 0;
+  text-align: center;
+}
+
+.see-more span {
+  position: relative;
+  padding: 14px 32px;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #123F35;
+  text-decoration: none;
+  border: 2px solid #123F35;
+  border-radius: 6px;
+  transition: color 0.3s, box-shadow 0.3s;
+}
+
+.see-more span::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  padding: 2px;
+  background: linear-gradient(90deg, #C8A76B, #123F35);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.see-more:hover span {
+  color: #FFFFFF;
+  box-shadow: 0 0 24px rgba(18, 63, 53, 0.6);
+}
+
+.see-more:hover span::before {
+  opacity: 1;
 }
 
 a.card:hover,
@@ -932,7 +1042,7 @@ body.modal-open {
 
 @keyframes slow-zoom {
   from {
-    transform: scale(1.08);
+    transform: scale(1.12);
   }
   to {
     transform: scale(1);
@@ -960,6 +1070,7 @@ body.modal-open {
 /* Hero hero-image slow zoom on page load */
 .hero-image {
   animation: slow-zoom 20s ease-out both;
+  will-change: transform;
 }
 
 /* Page-load entrance for hero content */
@@ -1241,6 +1352,37 @@ body.modal-open {
   max-width: 600px;
 }
 
+/* Daily wisdom quote card */
+.quote-card {
+  padding: 48px 40px;
+  border: 1px solid #DDE2D6;
+  border-left: 4px solid #C8A76B;
+  background: #FFFFFF;
+  border-radius: 8px;
+  max-width: 900px;
+  margin: 0 auto;
+  color: #24332F;
+}
+
+.quote-text {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: 24px;
+  font-style: italic;
+  line-height: 1.5;
+  color: #123F35;
+  margin: 0;
+}
+
+@media (max-width: 860px) {
+  .quote-card {
+    padding: 32px 24px;
+  }
+
+  .quote-text {
+    font-size: 20px;
+  }
+}
+
 @media (max-width: 860px) {
   .stat-grid {
     grid-template-columns: 1fr 1fr;
@@ -1392,4 +1534,63 @@ body.modal-open {
 @media (prefers-reduced-motion: reduce) {
   .entry-veil { transition: none; animation: none; }
   .entry-veil.done { display: none; }
+}
+
+/* ---------- Back to top button ---------- */
+
+.back-to-top {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 200;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 50%;
+  background: #123F35;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: opacity 0.3s, visibility 0.3s, transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: #C8A76B;
+  box-shadow: 0 6px 18px rgba(200, 167, 107, 0.4);
+}
+
+.back-to-top:focus-visible {
+  outline: 3px solid #C8A76B;
+  outline-offset: 2px;
+}
+
+/* Ensure pages have enough bottom room so the button never overlaps content */
+main {
+  padding-bottom: 80px;
+}
+
+@media (max-width: 560px) {
+  .back-to-top {
+    left: 16px;
+    bottom: 16px;
+    width: 44px;
+    height: 44px;
+  }
+
+  main {
+    padding-bottom: 72px;
+  }
 }
