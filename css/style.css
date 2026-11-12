@@ -832,7 +832,7 @@ a.card:focus-visible {
 /* Respect visitors who ask for less motion */
 @media (prefers-reduced-motion: reduce) {
   .marquee-track {
-    animation: none;
+    animation-duration: 60s;
   }
 
   * {
