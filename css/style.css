@@ -835,6 +835,14 @@ a.card:focus-visible {
     animation-duration: 60s;
   }
 
+  .hero-image {
+    animation: slow-zoom 20s ease-out both;
+  }
+
+  .back-to-top {
+    animation: none;
+  }
+
   * {
     transition: none !important;
   }
